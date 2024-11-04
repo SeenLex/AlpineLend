@@ -15,9 +15,9 @@ const geistMono = localFont({
 import type { Metadata, Viewport } from "next";
 
 const APP_NAME = "AlpineLend";
-const APP_DEFAULT_TITLE = "My Awesome PWA App";
+const APP_DEFAULT_TITLE = "AlpineLend";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
-const APP_DESCRIPTION = "Best PWA app in the world!";
+const APP_DESCRIPTION = "";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
