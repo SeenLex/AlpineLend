@@ -7,3 +7,128 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+model User {
+  user_id          Int       @id @default(autoincrement())
+  name             String    @db.VarChar(100)
+  surname          String    @db.VarChar(100)
+  email            String    @unique @db.VarChar(100)
+  password         String    @db.VarChar(255)
+  phone            String?   @db.VarChar(20)
+  location         String?   @db.VarChar(100)
+  gender           String?   @db.VarChar(10)
+  profile_image    String?   @db.VarChar(255)
+  member_since     DateTime  @default(now())
+  status           String?   @db.VarChar(20)
+  items            Item[]
+  bookings         Booking[] @relation("BorrowerBookings")
+  lenderBookings   Booking[] @relation("LenderBookings")
+  messagesSent     Message[] @relation("SentMessages")
+  messagesReceived Message[] @relation("ReceivedMessages")
+  notifications    Notification[]
+  otps             OTP[]
+  reviews          Review[]  @relation("ReviewerReviews")
+  ratings          Rating[]  @relation("UserRatings")
+  reviewerRatings  Rating[]  @relation("ReviewerRatings")  // Added back-reference for reviewer relation
+}
+
+model Item {
+  item_id       Int      @id @default(autoincrement())
+  user_id       Int
+  user          User     @relation(fields: [user_id], references: [user_id])
+  category_id   Int
+  category      Category @relation(fields: [category_id], references: [category_id])
+  brand         String   @db.VarChar(100)
+  model         String   @db.VarChar(100)
+  condition     String   @db.VarChar(20)
+  description   String?
+  availability  Boolean
+  price_per_day Decimal  @db.Decimal(10, 2)
+  bookings      Booking[]
+  reviews       Review[]
+  ratings       Rating[]
+}
+
+model Booking {
+  booking_id  Int      @id @default(autoincrement())
+  item_id     Int
+  item        Item     @relation(fields: [item_id], references: [item_id])
+  borrower_id Int
+  borrower    User     @relation("BorrowerBookings", fields: [borrower_id], references: [user_id])
+  lender_id   Int
+  lender      User     @relation("LenderBookings", fields: [lender_id], references: [user_id])
+  start_date  DateTime
+  end_date    DateTime
+  status      String   @db.VarChar(20)
+  total_price Decimal  @db.Decimal(10, 2)
+  payments    Payment[]
+  reviews     Review[] // Added back-reference for reviews relation
+}
+
+model Message {
+  message_id   Int      @id @default(autoincrement())
+  sender_id    Int
+  sender       User     @relation("SentMessages", fields: [sender_id], references: [user_id])
+  receiver_id  Int
+  receiver     User     @relation("ReceivedMessages", fields: [receiver_id], references: [user_id])
+  message_text String?
+  timestamp    DateTime @default(now())
+}
+
+model Payment {
+  payment_id    Int      @id @default(autoincrement())
+  booking_id    Int
+  booking       Booking  @relation(fields: [booking_id], references: [booking_id])
+  payment_method String  @db.VarChar(20)
+  amount        Decimal  @db.Decimal(10, 2)
+  payment_date  DateTime @default(now())
+  status        String   @db.VarChar(20)
+}
+
+model Notification {
+  notification_id Int      @id @default(autoincrement())
+  user_id         Int
+  user            User     @relation(fields: [user_id], references: [user_id])
+  message         String   @db.VarChar(255)
+  timestamp       DateTime @default(now())
+  is_read         Boolean  @default(false)
+}
+
+model Category {
+  category_id   Int      @id @default(autoincrement())
+  category_name String   @db.VarChar(100)
+  items         Item[]
+}
+
+model OTP {
+  otp_id      Int      @id @default(autoincrement())
+  user_id     Int
+  user        User     @relation(fields: [user_id], references: [user_id])
+  otp_code    Int
+  expiration  DateTime
+}
+
+model Review {
+  review_id   Int      @id @default(autoincrement())
+  reviewer_id Int
+  reviewer    User     @relation("ReviewerReviews", fields: [reviewer_id], references: [user_id])
+  item_id     Int
+  item        Item     @relation(fields: [item_id], references: [item_id])
+  booking_id  Int
+  booking     Booking  @relation(fields: [booking_id], references: [booking_id])
+  review_text String?
+  review_date DateTime @default(now())
+}
+
+model Rating {
+  rating_id    Int      @id @default(autoincrement())
+  rating_value Int
+  item_id      Int
+  item         Item     @relation(fields: [item_id], references: [item_id])
+  user_id      Int
+  user         User     @relation("UserRatings", fields: [user_id], references: [user_id])
+  reviewer_id  Int
+  reviewer     User     @relation("ReviewerRatings", fields: [reviewer_id], references: [user_id])
+  rating_date  DateTime @default(now())
+}
+
