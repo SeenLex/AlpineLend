@@ -1,18 +1,19 @@
-import localFont from "next/font/local";
-import "./globals.css";
+import "@/assets/globals.css";
+import "next/font/local"
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "../assets/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../assets/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
 
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 
 const APP_NAME = "AlpineLend";
 const APP_DEFAULT_TITLE = "AlpineLend";

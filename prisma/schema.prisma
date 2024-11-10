@@ -8,12 +8,17 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum UserRole {
+  ADMIN
+  USER
+}
+
 model User {
   user_id          Int       @id @default(autoincrement())
+  role             UserRole  @default(USER)
   name             String    @db.VarChar(100)
   surname          String    @db.VarChar(100)
   email            String    @unique @db.VarChar(100)
-  password         String    @db.VarChar(255)
   phone            String?   @db.VarChar(20)
   location         String?   @db.VarChar(100)
   gender           String?   @db.VarChar(10)
@@ -29,7 +34,7 @@ model User {
   otps             OTP[]
   reviews          Review[]  @relation("ReviewerReviews")
   ratings          Rating[]  @relation("UserRatings")
-  reviewerRatings  Rating[]  @relation("ReviewerRatings")  // Added back-reference for reviewer relation
+  reviewerRatings  Rating[]  @relation("ReviewerRatings")
 }
 
 model Item {
@@ -62,7 +67,7 @@ model Booking {
   status      String   @db.VarChar(20)
   total_price Decimal  @db.Decimal(10, 2)
   payments    Payment[]
-  reviews     Review[] // Added back-reference for reviews relation
+  reviews     Review[]
 }
 
 model Message {
