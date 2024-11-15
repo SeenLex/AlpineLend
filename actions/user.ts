@@ -4,9 +4,6 @@ import { createClient } from "@/utils/supabase/client";
 import prisma from "@/prisma/db";
 
 const supabase = createClient();
-
-const prisma = new PrismaClient();
-
 export async function saveUser(formData: FormData) {
   await prisma.user.create({
     data: {
