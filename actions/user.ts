@@ -37,3 +37,24 @@ export const fetchPopularUsers = async(): Promise<User[]> => {
   if (error) throw error;
   return data || [];
 }
+
+export async function getUserById(user_id: number) {
+  return await prisma.user.findUnique({
+    where: {
+      user_id,
+    },
+  });
+}
+
+export async function updateUser(user_id: number, formData: FormData) {
+  await prisma.user.update({
+    where: {
+      user_id,
+    },
+    data: {
+      name: formData.get("name") as string,
+      surname: formData.get("surname") as string,
+      email: formData.get("email") as string,
+    },
+  });
+}
