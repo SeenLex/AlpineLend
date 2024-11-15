@@ -4,7 +4,6 @@ import { getUserByEmail } from "../actions/user";
 export default async function AuthPage() {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
-  console.log(data);
   const dbUser = await getUserByEmail(data.user!.email!);
 
   return (

@@ -1,5 +1,9 @@
 'use server'
-import { PrismaClient } from "@prisma/client";
+import { User, Item} from "@prisma/client";
+import { createClient } from "@/utils/supabase/client";
+import prisma from "@/prisma/db";
+
+const supabase = createClient();
 
 const prisma = new PrismaClient();
 
@@ -19,4 +23,20 @@ export async function getUserByEmail(email: string) {
       email,
     },
   });
+}
+
+export async function getAllCategories() {
+  return await prisma.category.findMany();
+}
+
+export const fetchPopularItems = async(): Promise<Item[]> => {
+  const { data, error } = await supabase.from('items').select('*').order('rating', {ascending: false}).limit(5);
+  if (error) throw error;
+  return data || [];
+}
+
+export const fetchPopularUsers = async(): Promise<User[]> => {
+  const { data, error } = await supabase.from('users').select('*').order('rating', {ascending: false}).limit(5);
+  if (error) throw error;
+  return data || [];
 }
