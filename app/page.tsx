@@ -1,10 +1,9 @@
 'use client';
-import AuthPage from "@/components/AuthPage";
-// import { logout } from "../actions/auth";
+import { logout } from "../actions/auth";
 import React, { useEffect, useState } from 'react';
-import { fetchCategories } from '../actions/user';
 import CategoryList from '../components/CategoryList'
 import { Category } from '@prisma/client'
+import { getAllCategories } from "@/actions/user";
 
 const HomePage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -13,7 +12,7 @@ const HomePage: React.FC = () => {
     const loadData = async () => {
       try {
         const [categoriesData] = await Promise.all([
-          fetchCategories(),
+          getAllCategories(),
         ]);
         setCategories(categoriesData);
       } catch (error) {
@@ -26,6 +25,11 @@ const HomePage: React.FC = () => {
   return (
     <div className="p-4">
       <header className="header flex items-center justify-between mb-6">
+      <form action={logout}>
+           <button className="absolute top-6 right-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 ease-in-out" type="submit">
+             logout
+           </button>
+         </form>
         <div className="profile-info flex items-center">
           <img src="/default-profile.png" alt="User profile" className="w-12 h-12 rounded-full mr-4" />
           <h2 className="text-xl font-bold">User Name</h2>
@@ -34,7 +38,6 @@ const HomePage: React.FC = () => {
       </header>
       
       <CategoryList categories={categories} />
-      <AuthPage />
     </div>
   );
 };
