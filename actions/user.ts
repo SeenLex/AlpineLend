@@ -1,8 +1,9 @@
 'use server'
 import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
+
 export async function saveUser(formData: FormData) {
-  const prisma = new PrismaClient();
   await prisma.user.create({
     data: {
       name: formData.get("name") as string,
@@ -13,7 +14,6 @@ export async function saveUser(formData: FormData) {
 }
 
 export async function getUserByEmail(email: string) {
-  const prisma = new PrismaClient();
   return await prisma.user.findUnique({
     where: {
       email,
