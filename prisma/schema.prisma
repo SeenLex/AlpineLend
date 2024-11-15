@@ -103,6 +103,7 @@ model Category {
   category_id   Int      @id @default(autoincrement())
   category_name String   @db.VarChar(100)
   items         Item[]
+  image         String  @db.VarChar(255)
 }
 
 model OTP {
