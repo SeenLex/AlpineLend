@@ -1,93 +1,73 @@
-import React from "react";
-//import prisma from "@/prisma/db";
+'use client'
+import React, { useEffect, useState } from "react";
+import { logout } from "@/actions/auth";
+import { Category } from "@prisma/client";
+import CategoryList from "@/components/CategoryList";
+import { getAllCategories } from "@/actions/category";
 
 const HomePage = () => {
-  return (
-    <div className="bg-gray-100 min-h-screen p-4">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center">
-          <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-          <p className="ml-2 font-medium">User Name</p>
-        </div>
-        <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-      </div>
+  const [categories, setCategories] = useState<Category[]>([]);
 
-      <div className="mb-4">
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [categoriesData] = await Promise.all([getAllCategories()]);
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+    loadData();
+  }, []);
+
+
+  return (
+    <div className="p-4">
+      <header className="header flex items-center justify-between mb-6">
+        <form action={logout}>
+          <button
+            className="absolute top-6 right-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 ease-in-out"
+            type="submit"
+          >
+            logout
+          </button>
+        </form>
+        <div className="profile-info flex items-center">
+          <img
+            src="/default-profile.png"
+            alt="User profile"
+            className="w-12 h-12 rounded-full mr-4"
+          />
+          <h2 className="text-xl font-bold">User Name</h2>
+        </div>
         <input
           type="text"
           placeholder="Search"
-          className="w-full p-2 border border-gray-300 rounded-lg"
+          className="search-bar px-4 py-2 rounded bg-gray-100 w-full max-w-xs"
         />
-      </div>
-
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="font-bold text-lg">Looking For</h2>
-          <button className="text-sm text-gray-500">More →</button>
-        </div>
-        <div className="flex gap-2">
-          {["Boots", "Crampons", "Headlamps", "Backpacks"].map((item, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-gray-300 rounded-lg"></div>
-              <p className="text-sm mt-1">{item}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* <div className="mb-6">
-        <h2 className="font-bold text-lg mb-2">Popular</h2>
-        <div className="flex gap-4">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="flex-1 bg-white p-4 rounded-lg shadow-lg"
-            >
-              <div className="flex items-center mb-2">
-                <div className="w-10 h-10 bg-gray-300 rounded-lg"></div>
-                <div className="ml-2">
-                  <h3 className="font-medium">{product.name}</h3>
-                  <p className="text-sm text-gray-500">{product.category}</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-500 mb-2">Lorem ipsum.</p>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="text-yellow-400">{"★".repeat(product.rating)}</div>
-                  <p className="text-sm ml-2">({product.reviews})</p>
-                </div>
-                <button className="px-3 py-1 bg-blue-500 text-white text-sm rounded-lg">
-                  Book
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h2 className="font-bold text-lg mb-2">Popular Users</h2>
-        {users.map((user) => (
-          <div
-            key={user.id}
-            className="flex items-center bg-white p-4 rounded-lg shadow-lg mb-2"
-          >
-            <div className="w-16 h-16 bg-gray-300 rounded-lg"></div>
-            <div className="ml-4">
-              <h3 className="font-medium">{user.name}</h3>
-              <div className="text-yellow-400 text-sm">{"★".repeat(user.rating)}</div>
-              <p className="text-sm text-gray-500">
-                Member Since: {new Date(user.memberSince).toLocaleDateString()}
-              </p>
-            </div>
-            <button className="ml-auto px-3 py-1 bg-gray-200 text-sm rounded-lg">
-              See Profile
-            </button>
-          </div>
-        ))}
-      </div> */}
+      </header>
+      <CategoryList categories={categories} />
     </div>
   );
 };
 
 export default HomePage;
+
+// export default function Home() {
+//
+//   return (
+//     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+//       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+//
+//         <form action={logout}>
+//           <button className="absolute top-6 right-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 ease-in-out" type="submit">
+//             logout
+//           </button>
+//         </form>
+//         <div className="text-4xl">Hai ca avem de munca</div>
+//         <AuthPage />
+//       </main>
+//
+//     </div>
+//   );
+// }

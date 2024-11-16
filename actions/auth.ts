@@ -36,6 +36,7 @@ export async function register(formData: FormData) {
 
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
+  const confirmPassword = formData.get('confirmPassword') as string;
   const name = formData.get('name') as string;
   const surname = formData.get('surname') as string;
 
@@ -50,6 +51,7 @@ export async function register(formData: FormData) {
   if (!name || !/^[a-zA-Z]+$/.test(name)) {
     redirect('/error?message=Invalid name');
   }
+
   if (!surname || !/^[a-zA-Z]+$/.test(surname)) {
     redirect('/error?message=Invalid surname');
   }
@@ -65,6 +67,10 @@ export async function register(formData: FormData) {
     redirect('/error?message=Invalid password');
   }
 
+  if (password !== confirmPassword) {
+    redirect('/error?message=Passwords do not match');
+  }
+
   const data = { email, password };
   const { error } = await supabase.auth.signUp(data);
 
@@ -77,6 +83,7 @@ export async function register(formData: FormData) {
 }
 
 
+
 export async function logout() {
     const supabase = await createClient()
   
@@ -86,6 +93,6 @@ export async function logout() {
       redirect('/error')
     }
   
-    revalidatePath('/')
-    redirect('/login')
+    revalidatePath('/' , 'layout')
+    redirect('/')
   }
