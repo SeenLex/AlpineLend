@@ -57,15 +57,20 @@ export async function deleteItem(item_id: number) {
     });
 }
 
-export async function getItemsByCategory(category_id: number) {
+export async function getItemsByCategoryName(category_name: string) {
     return await prisma.item.findMany({
-        where: { category_id },
+        where: {
+            category: {
+                category_name: category_name,
+            },
+        },
         include: {
             category: true,
             user: true,
         },
     });
 }
+
 
 export async function getItemsByUser(user_id: number) {
     return await prisma.item.findMany({

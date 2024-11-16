@@ -1,6 +1,8 @@
-'use client';
+"use client";
+
 import { getAllCategories } from "@/actions/category";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Category {
   category_id: number;
@@ -11,6 +13,7 @@ interface Category {
 const Categories = () => {
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const loadData = async () => {
@@ -29,15 +32,17 @@ const Categories = () => {
       category.category_name.toLowerCase().includes(search.toLowerCase())
     ) || [];
 
+  const handleCategoryClick = (categoryName: string) => {
+    router.push(`/categories/${encodeURIComponent(categoryName)}/items`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Header */}
       <div className="flex items-center p-4 bg-white shadow-sm">
         <button className="text-lg text-gray-700 font-semibold mr-4">←</button>
         <h1 className="text-lg font-bold text-gray-900">Categories</h1>
       </div>
 
-      {/* Search Bar */}
       <div className="p-4">
         <div className="relative">
           <input
@@ -53,7 +58,6 @@ const Categories = () => {
         </div>
       </div>
 
-      {/* Categories List */}
       <div className="flex-grow p-4 space-y-4 overflow-y-auto">
         {filteredCategories.length === 0 ? (
           <p className="text-center text-gray-500">No categories found.</p>
@@ -61,9 +65,9 @@ const Categories = () => {
           filteredCategories.map((category) => (
             <div
               key={category.category_id}
-              className="flex items-center bg-white rounded-lg shadow-md overflow-hidden"
+              className="flex items-center bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"
+              onClick={() => handleCategoryClick(category.category_name)}
             >
-              {/* Image Section */}
               <div className="w-16 h-16 bg-gray-300 flex items-center justify-center">
                 {category.image ? (
                   <img
@@ -76,7 +80,6 @@ const Categories = () => {
                 )}
               </div>
 
-              {/* Text Section */}
               <div className="flex-grow px-4 py-2">
                 <p className="text-sm font-medium text-gray-800">
                   {category.category_name}
@@ -86,7 +89,6 @@ const Categories = () => {
           ))
         )}
       </div>
-
     </div>
   );
 };
