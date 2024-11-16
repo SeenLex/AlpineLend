@@ -21,7 +21,7 @@
 //           <h4>{item.model}</h4>
 //           <p>{item.description}</p>
 //           <div className="rating flex justify-between items-center">
-//             <span>⭐ {item.ratings.}</span>
+//             <span>⭐ {item.ratings}</span>
 //             <button className="px-2 py-1 bg-blue-500 text-white rounded">Book</button>
 //           </div>
 //         </div>
