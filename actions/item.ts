@@ -35,6 +35,29 @@ export async function getItemById(item_id: number) {
     });
 }
 
+export async function getItemsByCategoryName(category_name: string) {
+    return await prisma.item.findMany({
+        where: {
+            category: {
+                category_name: category_name,
+            },
+        },
+        include: {
+            category: true,
+            user: true,
+        },
+    });
+}
+
+export async function getItemsByUser(user_id: number) {
+    return await prisma.item.findMany({
+        where: { user_id },
+        include: {
+            category: true,
+        },
+    });
+}
+
 export async function updateItem(item_id: number, formData: FormData) {
     return await prisma.item.update({
         where: { item_id },
@@ -54,29 +77,5 @@ export async function updateItem(item_id: number, formData: FormData) {
 export async function deleteItem(item_id: number) {
     return await prisma.item.delete({
         where: { item_id },
-    });
-}
-
-export async function getItemsByCategoryName(category_name: string) {
-    return await prisma.item.findMany({
-        where: {
-            category: {
-                category_name: category_name,
-            },
-        },
-        include: {
-            category: true,
-            user: true,
-        },
-    });
-}
-
-
-export async function getItemsByUser(user_id: number) {
-    return await prisma.item.findMany({
-        where: { user_id },
-        include: {
-            category: true,
-        },
     });
 }

@@ -41,11 +41,3 @@ export async function deleteCategory(category_id: number) {
         },
     });
 }
-
-export async function getItemsByCategory(category_id: number) {
-    return await prisma.item.findMany({
-        where: {
-            category_id,
-        },
-    });
-}

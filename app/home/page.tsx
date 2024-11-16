@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { logout } from '@/actions/auth';
 import { Category } from '@prisma/client';
 import { getAllCategories } from '@/actions/category';
+import Footer from '@/components/Footer';
 
 const HomePage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -21,7 +22,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
         <div className="flex items-center">
           <img
@@ -46,10 +46,8 @@ const HomePage = () => {
         </form>
       </header>
 
-      {/* Main Content */}
       <main className="p-6">
         <div className="max-w-screen-lg mx-auto space-y-12">
-          {/* Looking For Section */}
           <section>
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Looking For</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -69,11 +67,9 @@ const HomePage = () => {
             </div>
           </section>
 
-          {/* Popular Section */}
           <section>
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Popular</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Example Card */}
               <div className="flex flex-col bg-white shadow-sm rounded-md p-4">
                 <h4 className="text-gray-800 font-medium">Scarpa</h4>
                 <span className="text-sm text-gray-600">Boots</span>
@@ -89,7 +85,6 @@ const HomePage = () => {
             </div>
           </section>
 
-          {/* Popular Users Section */}
           <section>
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Popular Users</h3>
             <div className="flex items-center bg-white shadow-sm rounded-md p-4">
@@ -111,21 +106,7 @@ const HomePage = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white shadow-md py-4 px-6 flex justify-around">
-        <button className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <span className="text-xl">🏠</span>
-          <span className="text-sm">Home</span>
-        </button>
-        <button className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <span className="text-xl">📂</span>
-          <span className="text-sm">Categories</span>
-        </button>
-        <button className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-          <span className="text-xl">⚙️</span>
-          <span className="text-sm">Settings</span>
-        </button>
-      </footer>
+      <Footer />
     </div>
   );
 };

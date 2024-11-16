@@ -1,5 +1,4 @@
 'use server'
-
 import prisma from "@/prisma/db";
 
 export async function createBooking(formData: FormData) {
@@ -29,6 +28,17 @@ export async function getAllBookings() {
 export async function getBookingById(booking_id: number) {
     return await prisma.booking.findUnique({
         where: { booking_id },
+        include: {
+            borrower: true,
+            lender: true,
+            item: true,
+        },
+    });
+}
+
+export async function getBookingByLenderId(lender_id: number) {
+    return await prisma.booking.findMany({
+        where: { lender_id: lender_id },
         include: {
             borrower: true,
             lender: true,
