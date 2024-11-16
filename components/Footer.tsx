@@ -1,6 +1,8 @@
 'use client';
+import Link from 'next/link';
 import React from 'react';
-import { FaHome, FaFolder, FaCog } from 'react-icons/fa';
+import { CgProfile } from 'react-icons/cg';
+import { FaHome, FaFolder } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   return (
@@ -13,10 +15,10 @@ const Footer: React.FC = () => {
         <FaFolder size={24} />
         <span className="text-sm">Categories</span>
       </button>
-      <button className="flex flex-col items-center text-gray-600 hover:text-gray-800">
-        <FaCog size={24} />
-        <span className="text-sm">Settings</span>
-      </button>
+      <Link href="/profile" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
+        <CgProfile size={24} />
+        <span className="text-sm">Profile</span>
+      </Link>
     </footer>
   );
 };
