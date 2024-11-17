@@ -26,6 +26,10 @@ const HomePage = () => {
     router.push(`/categories`);
   };
 
+  const handleCategoryClick = (categoryName: string) => {
+    router.push(`/categories/${encodeURIComponent(categoryName)}/items`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
@@ -70,6 +74,7 @@ const HomePage = () => {
                 <div
                   key={category.category_id}
                   className="flex flex-col items-center bg-white shadow-sm rounded-md p-4"
+                  onClick={() => handleCategoryClick(category.category_name)}
                 >
                   <img
                     src={category.image || '/placeholder.png'}
