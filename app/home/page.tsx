@@ -4,9 +4,11 @@ import { logout } from '@/actions/auth';
 import { Category } from '@prisma/client';
 import { getAllCategories } from '@/actions/category';
 import Footer from '@/components/Footer';
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const loadData = async () => {
@@ -19,6 +21,10 @@ const HomePage = () => {
     };
     loadData();
   }, []);
+
+  const handleMoreClick = () => {
+    router.push(`/categories`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -49,7 +55,16 @@ const HomePage = () => {
       <main className="p-6">
         <div className="max-w-screen-lg mx-auto space-y-12">
           <section>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Looking For</h3>
+            <div className="flex items-center justify-between mb-4"> 
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">Looking For</h3>
+              <button
+                onClick={() => handleMoreClick()}
+                className="text-sm font-medium text-gray-800 hover:text-black"
+              >
+                More
+              </button>
+            </div>
+
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {categories.map((category) => (
                 <div
