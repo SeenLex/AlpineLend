@@ -4,11 +4,10 @@ import { logout } from '@/actions/auth';
 import { Category } from '@prisma/client';
 import { getAllCategories } from '@/actions/category';
 import Footer from '@/components/Footer';
-import { useRouter } from "next/navigation";
+import CategoryList from '@/components/CategoryList';
 
 const HomePage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const router = useRouter();
 
   useEffect(() => {
     const loadData = async () => {
@@ -21,14 +20,6 @@ const HomePage = () => {
     };
     loadData();
   }, []);
-
-  const handleMoreClick = () => {
-    router.push(`/categories`);
-  };
-
-  const handleCategoryClick = (categoryName: string) => {
-    router.push(`/categories/${encodeURIComponent(categoryName)}/items`);
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -60,38 +51,8 @@ const HomePage = () => {
       {/* Main Content */}
       <main className="p-6">
         <div className="max-w-screen-lg mx-auto space-y-12">
-          {/* Looking For Section */}
-          <section>
-            <div className="flex items-center justify-between mb-4"> 
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Looking For</h3>
-              <button
-                onClick={() => handleMoreClick()}
-                className="text-sm font-medium text-gray-800 hover:text-black"
-              >
-                More
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {categories.map((category) => (
-                <div
-                  key={category.category_id}
-                  className="flex flex-col items-center bg-white shadow-sm rounded-md p-4"
-                  onClick={() => handleCategoryClick(category.category_name)}
-                >
-                  <img
-                    src={category.image || '/placeholder.png'}
-                    alt={category.category_name}
-                    className="w-16 h-16 object-cover rounded-full mb-2"
-                  />
-                  <span className="text-sm font-medium text-gray-600">
-                    {category.category_name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </section>
-
+          
+            <CategoryList categories={categories} />
           {/* Popular Section */}
           <section>
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Popular</h3>
