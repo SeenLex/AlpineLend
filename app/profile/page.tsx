@@ -1,62 +1,72 @@
-// profile.tsx
 import React from 'react';
 import Link from 'next/link';
-import { History, User, LogOut, Home, LayoutGrid, Image } from 'lucide-react';
+import { History, User, LogOut, Image } from 'lucide-react';
 import AuthPage from '@/components/AuthPage';
 import Footer from '@/components/Footer';
 
 const Profile = () => {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="py-4 px-4">
-        <h1 className="text-xl font-semibold text-black">Profile</h1>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center">
+      <div className="py-6 px-4 w-full text-center bg-white shadow-sm">
+        <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
       </div>
 
-      {/* Profile Image Placeholder */}
-      <div className="px-4 mb-6">
-        <div className="w-20 h-20 border-2 border-gray-200 rounded-lg flex items-center justify-center">
-          <Image className="text-gray-400" size={24} />
+      {/* Profile Picture Section */}
+      <div className="flex flex-col items-center py-8 w-full">
+        <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center mb-4">
+          <Image className="text-gray-400" size={40} />
         </div>
-        <AuthPage />
+        <div className="flex justify-center w-full px-4">
+          <AuthPage />
+        </div>
       </div>
 
-      <div className="px-4">
-        <Link href="/history" 
-          className="flex items-center py-8 border border-red-600">
-          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-            <History className="text-gray-600" size={18} />
+      {/* Options Section */}
+      <div className="px-4 py-6 w-full max-w-md space-y-4">
+        <Link
+          href="/history"
+          className="flex items-center px-4 py-3 bg-white rounded-lg shadow hover:bg-gray-100 transition"
+        >
+          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+            <History className="text-gray-600" size={20} />
           </div>
-          <span className="text-black">History</span>
-          <span className="ml-auto text-gray-400">&gt;</span>
+          <span className="flex-1 text-gray-800 font-medium">History</span>
+          <span className="text-gray-400">&gt;</span>
         </Link>
 
-        <Link href="/my-items" 
-          className="flex items-center py-4 border-b border-gray-100">
-          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-            <Image className="text-gray-600" size={18} />
+        <Link
+          href="/my-items"
+          className="flex items-center px-4 py-3 bg-white rounded-lg shadow hover:bg-gray-100 transition"
+        >
+          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+            <Image className="text-gray-600" size={20} />
           </div>
-          <span className="text-black">My Items</span>
-          <span className="ml-auto text-gray-400">&gt;</span>
+          <span className="flex-1 text-gray-800 font-medium">My Items</span>
+          <span className="text-gray-400">&gt;</span>
         </Link>
 
-        <Link href="/personal-details" 
-          className="flex items-center py-4 border-b border-gray-100">
-          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-            <User className="text-gray-600" size={18} />
+        <Link
+          href="/personal-details"
+          className="flex items-center px-4 py-3 bg-white rounded-lg shadow hover:bg-gray-100 transition"
+        >
+          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+            <User className="text-gray-600" size={20} />
           </div>
-          <span className="text-black">Personal Details</span>
-          <span className="ml-auto text-gray-400">&gt;</span>
+          <span className="flex-1 text-gray-800 font-medium">Personal Details</span>
+          <span className="text-gray-400">&gt;</span>
         </Link>
 
-        <button className="flex items-center py-4 w-full">
-          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-            <LogOut className="text-red-500" size={18} />
+        <button
+          className="flex items-center px-4 py-3 bg-white rounded-lg shadow hover:bg-gray-100 transition w-full"
+        >
+          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+            <LogOut className="text-red-500" size={20} />
           </div>
-          <span className="text-red-500">Log out</span>
+          <span className="flex-1 text-red-500 font-medium">Log out</span>
         </button>
       </div>
 
+      {/* Footer */}
       <Footer />
     </div>
   );

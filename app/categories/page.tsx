@@ -3,6 +3,7 @@
 import { getAllCategories } from "@/actions/category";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from 'next/link';
 
 interface Category {
   category_id: number;
@@ -39,7 +40,7 @@ const Categories = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <div className="flex items-center p-4 bg-white shadow-sm">
-        <button className="text-lg text-gray-700 font-semibold mr-4">←</button>
+        <Link href="home" className="text-lg text-gray-700 font-semibold mr-4">←</Link>
         <h1 className="text-lg font-bold text-gray-900">Categories</h1>
       </div>
 
