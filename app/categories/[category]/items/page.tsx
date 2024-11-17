@@ -7,7 +7,7 @@ interface ItemsPageProps {
 }
 
 const ItemsPage = async ({ params }: ItemsPageProps) => {
-  const { category } = params;
+  const { category } = await params;
 
   const items = await getItemsByCategoryName(category);
 
