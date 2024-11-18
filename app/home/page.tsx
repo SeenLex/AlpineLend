@@ -1,25 +1,12 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { logout } from "@/actions/auth";
-import { Category } from "@prisma/client";
 import { getAllCategories } from "@/actions/category";
 import Footer from "@/components/Footer";
 import CategoryList from "@/components/CategoryList";
 
-const HomePage = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const categoriesData = await getAllCategories();
-        setCategories(categoriesData);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
-    };
-    loadData();
-  }, []);
+const HomePage = async () => {
+  const categories = await getAllCategories();
+        
 
   return (
     <div className="min-h-screen bg-gray-50">
