@@ -1,12 +1,10 @@
 import { getItemsByCategoryName } from "@/actions/item";
 
 interface ItemsPageProps {
-  params: {
     category: string;
-  };
 }
 
-const ItemsPage = async ({ params }: ItemsPageProps) => {
+const ItemsPage = async ({ params }: {params: Promise<ItemsPageProps>}) => {
   const { category } = await params;
 
   const items = await getItemsByCategoryName(category);
