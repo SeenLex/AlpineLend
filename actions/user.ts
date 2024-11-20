@@ -1,6 +1,23 @@
 'use server'
 import prisma from "@/prisma/db";
+import { createClient } from '@/utils/supabase/server'
 
+export async function fetchUser() {
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getUser();
+    const dbUser = await getUserByEmail(data.user!.email!);
+
+    if (!dbUser) {
+      throw new Error('User not found in the database');
+    }
+
+    return dbUser;
+  } catch (error) {
+    console.error('Error in fetchUser:', error);
+    return null;
+  }
+};
 
 export async function saveUser(formData: FormData) {
   await prisma.user.create({
