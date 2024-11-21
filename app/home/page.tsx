@@ -1,7 +1,6 @@
 import React from "react";
 import { logout } from "@/actions/auth";
 import { getAllCategories } from "@/actions/category";
-import Footer from "@/components/Footer";
 import CategoryList from "@/components/CategoryList";
 
 const HomePage = async () => {
@@ -87,7 +86,6 @@ const HomePage = async () => {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 };

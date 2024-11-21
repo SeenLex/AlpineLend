@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { History, User, LogOut, Image } from "lucide-react";
 import AuthPage from "@/components/AuthPage";
-import Footer from "@/components/Footer";
 import { logout } from "@/actions/auth";
 
 const Profile = () => {
@@ -71,9 +70,6 @@ const Profile = () => {
           </button>
         </form>
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };
