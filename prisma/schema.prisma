@@ -46,7 +46,7 @@ model Item {
   brand         String   @db.VarChar(100)
   model         String   @db.VarChar(100)
   condition     String   @db.VarChar(20)
-  description   String?
+  description   String?  @db.VarChar(255)
   availability  Boolean
   price_per_day Decimal  @db.Decimal(10, 2)
   bookings      Booking[]
