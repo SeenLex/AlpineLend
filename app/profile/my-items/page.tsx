@@ -1,56 +1,93 @@
-import React from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { fetchUser } from '@/actions/user';
+import { getItemsByUser } from '@/actions/item';
+import { Decimal } from '@prisma/client/runtime/library';
 
-const page = () => {
+interface Category {
+  category_id: number;
+  category_name: string;
+  image: string;
+}
+
+interface Item {
+  category: Category;
+  user_id: number;
+  item_id: number;
+  category_id: number;
+  brand: string;
+  model: string;
+  condition: string;
+  description: string | null;
+  availability: boolean;
+  price_per_day: Decimal;
+}
+
+const Page = () => {
+  const [items, setItems] = useState<Item[]>([]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const currentUser = await fetchUser();
+
+      if (currentUser) {
+        const fetchedItems = await getItemsByUser(currentUser.user_id);
+        setItems(fetchedItems);
+      }
+    };
+
+    loadData();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center px-4 py-6">
       <header className="w-full flex items-center justify-between mb-6">
         <button className="text-lg">&larr;</button>
         <h1 className="text-xl font-semibold">My Items</h1>
-        <div className="w-6"></div> {/* Placeholder for alignment */}
+        <div className="w-6"></div>
       </header>
 
-      <div className="w-full max-w-md">
-        {Array(3)
-          .fill(null)
-          .map((_, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl mb-20">
+        {items.length === 0 ? (
+          <p className="text-center col-span-full">No items found.</p>
+        ) : (
+          items.map((item) => (
             <div
-              key={index}
-              className="flex items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4"
+              key={item.item_id}
+              className="flex flex-col bg-white rounded-lg shadow-md p-4"
             >
-              {/* Image placeholder */}
-              <div className="flex items-start space-x-4">
-                <div className="w-16 h-16 bg-gray-200 rounded-lg flex justify-center items-center">
-                  <span className="text-gray-500">Image</span>
-                </div>
-
-                {/* Item Details */}
-                <div>
-                  <p className="font-medium">Brand</p>
-                  <p className="text-sm text-gray-500">Model</p>
-                  <p className="text-sm text-gray-500">Condition</p>
-                </div>
+              <div className="w-full h-32 bg-gray-200 rounded-lg flex justify-center items-center mb-4">
+                <span className="text-gray-500">Image</span>
               </div>
 
-              {/* Action buttons */}
-              <div className="flex flex-col space-y-2">
-                <button className="px-4 py-1 bg-black text-white rounded-md">
+              <div className="flex flex-col">
+                <p className="font-medium text-lg">{item.brand}</p>
+                <p className="text-sm text-gray-500">{item.model}</p>
+                <p className="text-sm text-gray-500">{item.condition}</p>
+              </div>
+
+              <div className="mt-4 flex justify-between">
+                <button className="px-4 py-2 bg-black text-white rounded-md">
                   Edit
                 </button>
-                <button className="px-4 py-1 bg-red-100 text-red-600 rounded-md">
+                <button className="px-4 py-2 bg-red-100 text-red-600 rounded-md">
                   Remove
                 </button>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
-      
-      <Link href="/profile/my-items/add-item" className="fixed bottom-20 right-6 w-14 h-14 bg-blue-600 text-white text-2xl flex items-center justify-center rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
+
+      <Link
+        href="/profile/my-items/add-item"
+        className="fixed bottom-24 right-6 w-14 h-14 bg-blue-600 text-white text-2xl flex items-center justify-center rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+      >
         +
       </Link>
-
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;
