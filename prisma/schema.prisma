@@ -48,7 +48,6 @@ model Item {
   condition     String   @db.VarChar(20)
   description   String?  @db.VarChar(255)
   availability  Boolean
-  price_per_day Decimal  @db.Decimal(10, 2)
   bookings      Booking[]
   reviews       Review[]
   ratings       Rating[]
@@ -65,7 +64,6 @@ model Booking {
   start_date  DateTime
   end_date    DateTime
   status      String   @db.VarChar(20)
-  total_price Decimal  @db.Decimal(10, 2)
   payments    Payment[]
   reviews     Review[]
 }
