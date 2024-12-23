@@ -74,3 +74,19 @@ export async function deleteUser(user_id: number) {
     },
   });
 }
+
+export async function getUserInfo(user_id: number) {
+  return await prisma.user.findUnique({
+    where: {
+      user_id,
+    },
+    select: {
+      name: true,
+      surname: true,
+      email: true,
+      phone: true,
+      location: true,
+      gender: true
+    },
+  });
+}
