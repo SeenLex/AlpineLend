@@ -11,7 +11,6 @@ export async function createItem(formData: FormData) {
             condition: formData.get("condition") as string,
             description: formData.get("description") as string | null,
             availability: formData.get("availability") === "true",
-            price_per_day: parseFloat(formData.get("price_per_day") as string),
         },
     });
 }
@@ -69,7 +68,6 @@ export async function updateItem(item_id: number, formData: FormData) {
             condition: formData.get("condition") as string,
             description: formData.get("description") as string | null,
             availability: formData.get("availability") === "true",
-            price_per_day: parseFloat(formData.get("price_per_day") as string),
         },
     });
 }

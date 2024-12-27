@@ -18,9 +18,10 @@ const ItemsPage = async ({ params }: {params: Promise<ItemsPageProps>}) => {
         {items.length > 0 ? (
           items.map((item) => (
             <div key={item.item_id} className="bg-white p-4 rounded-lg shadow">
+              <div className="w-full h-32 bg-gray-200 rounded-lg flex justify-center items-center mb-4">
+                <span className="text-gray-500">Image</span></div>  
               <h2 className="text-lg font-semibold text-gray-700">{item.brand} - {item.model}</h2>
-              <p className="text-sm text-gray-500">{item.description || "No description provided."}</p>
-              <p className="mt-2 font-bold text-gray-900">$${Number(item.price_per_day).toFixed(2)} per day</p>
+              <p className="text-sm text-gray-500">{item.description}</p>
             </div>
           ))
         ) : (

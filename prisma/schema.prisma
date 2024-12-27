@@ -83,7 +83,6 @@ model Payment {
   booking_id    Int
   booking       Booking  @relation(fields: [booking_id], references: [booking_id])
   payment_method String  @db.VarChar(20)
-  amount        Decimal  @db.Decimal(10, 2)
   payment_date  DateTime @default(now())
   status        String   @db.VarChar(20)
 }

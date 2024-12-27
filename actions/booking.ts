@@ -10,7 +10,6 @@ export async function createBooking(formData: FormData) {
             start_date: new Date(formData.get("start_date") as string),
             end_date: new Date(formData.get("end_date") as string),
             status: formData.get("status") as string,
-            total_price: parseFloat(formData.get("total_price") as string),
         },
     });
 }
@@ -52,7 +51,6 @@ export async function updateBooking(booking_id: number, formData: FormData) {
         where: { booking_id },
         data: {
             status: formData.get("status") as string,
-            total_price: parseFloat(formData.get("total_price") as string),
         },
     });
 }
