@@ -1,9 +1,13 @@
 'use client';
 
+import {useState} from 'react';
 import { login } from '@/actions/auth';
 import Link from 'next/link';
 
 export default function LoginPage() {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -12,10 +16,19 @@ export default function LoginPage() {
 
     const formData = new FormData(form);
 
+    setIsLoading(true);
+    setErrorMessage(null);
+
     try {
       await login(formData);
     } catch (error) {
-      console.error('Login failed', error);
+      if(error instanceof Error) {
+          setErrorMessage(error.message || 'Login failed. Please try again.');
+      } else {
+          setErrorMessage('An unexpected error occured. Please try again');
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -25,6 +38,12 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">Welcome Back!</h2>
+
+        {errorMessage && (
+            <div className="mb-4 text-center text-red-500 text-sm font-medium">
+                {errorMessage}
+            </div>
+        )}
 
         <form>
           <div className="mb-4">
@@ -55,9 +74,14 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleLogin}
-              className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              disabled={isLoading}
+              className={`w-full py-2 px-4 rounded-md text-white ${
+                isLoading
+                  ? 'bg-indigo-400 cursor-not-allowed'
+                  : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500'
+              }`}
             >
-              Log in
+                {isLoading ? 'Logging in...' : 'Log in'}
             </button>
           </div>
 

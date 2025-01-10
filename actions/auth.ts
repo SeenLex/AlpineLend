@@ -14,20 +14,20 @@ export async function login(formData: FormData) {
     !/^[a-zA-Z0-9]+@[a-zA-Z]+\.(com|net|org)$/.test(email) ||
     !/(yahoo|gmail|outlook)\.com$/.test(email)
   ) {
-    redirect('/error?message=Invalid email address');
+    throw new Error('Invalid e-mail address!');
   }
 
   if (!password) {
-    redirect('/error?message=Password is required');
+    throw new Error('Password is required!');
   }
 
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    redirect('/error?message=Authentication failed');
+    throw new Error('Authentication failed! Incorrect e-mail address or password!');
   }
 
-  revalidatePath('/', 'layout');
+  revalidatePath('/');
   redirect('/home');
 }
 
