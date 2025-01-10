@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getItemsByCategoryName } from "@/actions/item";
 
 interface ItemsPageProps {
@@ -22,6 +23,12 @@ const ItemsPage = async ({ params }: {params: Promise<ItemsPageProps>}) => {
                 <span className="text-gray-500">Image</span></div>  
               <h2 className="text-lg font-semibold text-gray-700">{item.brand} - {item.model}</h2>
               <p className="text-sm text-gray-500">{item.description}</p>
+              <Link
+               href={`/booking/${item.item_id}`}
+               className="block mt-4 py-2 bg-indigo-600 text-white text-center rounded-md hover:bg-indigo-700"
+              >
+              Book now
+              </Link>
             </div>
           ))
         ) : (
