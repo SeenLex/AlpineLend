@@ -17,21 +17,23 @@ const ItemsPage = async ({ params }: {params: Promise<ItemsPageProps>}) => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.length > 0 ? (
-          items.map((item) => (
-            <div key={item.item_id} className="bg-white p-4 rounded-lg shadow">
-              <div className="w-full h-32 bg-gray-200 rounded-lg flex justify-center items-center mb-4">
-                <span className="text-gray-500">Image</span></div>  
-              <h2 className="text-lg font-semibold text-gray-700">{item.brand} - {item.model}</h2>
-              <p className="text-sm text-gray-500">{item.description}</p>
-              <Link
-               href={`/booking/${item.item_id}`}
-               className="block mt-4 py-2 bg-indigo-600 text-white text-center rounded-md hover:bg-indigo-700"
+            items.map((item) => (
+              <Link 
+                href={`/items/${item.item_id}`}
+                key={item.item_id}
+                className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition"
               >
-              Book now
+
+                <div className="h-40 bg-gray-200 rounded-lg flex justify-center items-center">
+                  <span className="text-gray-500">Image</span>
+                </div>
+                <h2 className="mt-4 text-lg font-semibold text-gray-800">
+                  {item.brand} - {item.model}
+                </h2>
+                <p className="text-gray-600">{item.description}</p>
               </Link>
-            </div>
-          ))
-        ) : (
+            )
+        )) : (
           <p className="text-gray-500">No items found for this category.</p>
         )}
       </div>
