@@ -8,9 +8,9 @@ const HomePage = async () => {
         
 
   return (
-    <div className="min-h-screen bg-gray-50">
+<div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
+      <header className="flex items-center justify-between px-4 py-3 bg-white shadow-md">
         <div className="flex items-center">
           <img
             src="/default-profile.png"
@@ -22,7 +22,7 @@ const HomePage = async () => {
         <input
           type="text"
           placeholder="Search"
-          className="flex-grow max-w-lg px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-600 focus:outline-none focus:ring focus:ring-gray-200"
+          className="hidden sm:flex flex-grow max-w-sm px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-200"
         />
         <form action={logout}>
           <button
@@ -35,19 +35,22 @@ const HomePage = async () => {
       </header>
 
       {/* Main Content */}
-      <main className="p-6">
+      <main className="pb-20 p-4 sm:p-6">
         <div className="max-w-screen-lg mx-auto space-y-12">
           <CategoryList categories={categories} />
+
           {/* Popular Section */}
           <section>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
               Popular
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-white shadow-sm rounded-lg p-6 hover:shadow-md transition">
                 <h4 className="text-lg font-medium text-gray-800">Scarpa</h4>
                 <span className="text-sm text-gray-600">Boots</span>
-                <p className="text-gray-500 text-sm mt-2">Lorem ipsum.</p>
+                <p className="text-gray-500 text-sm mt-2">
+                  Comfortable and durable boots for hiking.
+                </p>
                 <div className="flex items-center mt-4">
                   <span className="text-yellow-500 text-sm mr-2">
                     ★ ★ ★ ★ ☆
@@ -58,13 +61,12 @@ const HomePage = async () => {
                   Book
                 </button>
               </div>
-              {/* Add more cards if needed */}
             </div>
           </section>
 
           {/* Popular Users Section */}
           <section>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
               Popular Users
             </h3>
             <div className="flex items-center bg-white shadow-sm rounded-lg p-4 hover:shadow-md transition">
@@ -85,9 +87,7 @@ const HomePage = async () => {
           </section>
         </div>
       </main>
-
-    </div>
-  );
+    </div>  );
 };
 
 export default HomePage;
