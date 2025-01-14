@@ -1,32 +1,30 @@
 import React from "react";
 import { getAllCategories } from "@/actions/category";
 import CategoryList from "@/components/CategoryList";
+import SearchableCategoryList from "@/components/SearchableCategoryList";
 
 const HomePage = async () => {
   const categories = await getAllCategories();
         
-
   return (
 <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="flex items-center justify-between px-4 py-3 bg-white shadow-md">
-        <div className="flex items-center">
-          <img
-            src="/default-profile.png"
-            alt="User profile"
-            className="w-10 h-10 rounded-full mr-3"
-          />
-          <h2 className="text-lg font-semibold text-gray-800">User Name</h2>
+      <header className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
+        <div className="px-4 py-3">
+          <h1 className="text-lg font-semibold text-gray-800">AlpineLend</h1>
         </div>
-        <input
-          type="text"
-          placeholder="Search"
-          className="hidden sm:flex flex-grow max-w-sm px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-200"
-        />
+
+        <div className="px-4 pb-3">
+        <section>
+        {/* Searchable Category List */}
+        <SearchableCategoryList categories={categories} />
+        </section>
+        </div>
       </header>
 
       {/* Main Content */}
-      <main className="pb-20 p-4 sm:p-6">
+      <main className="pt-24 pb-20 p-4 sm:p-6">
+
         <div className="max-w-screen-lg mx-auto space-y-12">
           <CategoryList categories={categories} />
 
