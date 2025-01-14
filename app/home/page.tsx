@@ -1,5 +1,4 @@
 import React from "react";
-import { logout } from "@/actions/auth";
 import { getAllCategories } from "@/actions/category";
 import CategoryList from "@/components/CategoryList";
 
@@ -24,14 +23,6 @@ const HomePage = async () => {
           placeholder="Search"
           className="hidden sm:flex flex-grow max-w-sm px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-200"
         />
-        <form action={logout}>
-          <button
-            type="submit"
-            className="ml-4 px-4 py-2 bg-red-600 text-white text-sm rounded-full hover:bg-red-700 transition duration-300"
-          >
-            Logout
-          </button>
-        </form>
       </header>
 
       {/* Main Content */}
