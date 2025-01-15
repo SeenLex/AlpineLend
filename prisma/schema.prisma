@@ -29,10 +29,7 @@ model User {
   items            Item[]
   bookings         Booking[] @relation("BorrowerBookings")
   lenderBookings   Booking[] @relation("LenderBookings")
-  messagesSent     Message[] @relation("SentMessages")
-  messagesReceived Message[] @relation("ReceivedMessages")
   notifications    Notification[]
-  otps             OTP[]
   reviews          Review[]  @relation("ReviewerReviews")
   ratings          Rating[]  @relation("UserRatings")
   reviewerRatings  Rating[]  @relation("ReviewerRatings")
@@ -64,28 +61,7 @@ model Booking {
   lender      User     @relation("LenderBookings", fields: [lender_id], references: [user_id])
   start_date  DateTime
   end_date    DateTime
-  status      String   @db.VarChar(20)
-  payments    Payment[]
   reviews     Review[]
-}
-
-model Message {
-  message_id   Int      @id @default(autoincrement())
-  sender_id    Int
-  sender       User     @relation("SentMessages", fields: [sender_id], references: [user_id])
-  receiver_id  Int
-  receiver     User     @relation("ReceivedMessages", fields: [receiver_id], references: [user_id])
-  message_text String?
-  timestamp    DateTime @default(now())
-}
-
-model Payment {
-  payment_id    Int      @id @default(autoincrement())
-  booking_id    Int
-  booking       Booking  @relation(fields: [booking_id], references: [booking_id])
-  payment_method String  @db.VarChar(20)
-  payment_date  DateTime @default(now())
-  status        String   @db.VarChar(20)
 }
 
 model Notification {
@@ -102,14 +78,6 @@ model Category {
   category_name String   @db.VarChar(100)
   items         Item[]
   image         String  @db.VarChar(255)
-}
-
-model OTP {
-  otp_id      Int      @id @default(autoincrement())
-  user_id     Int
-  user        User     @relation(fields: [user_id], references: [user_id])
-  otp_code    Int
-  expiration  DateTime
 }
 
 model Review {
@@ -135,4 +103,3 @@ model Rating {
   reviewer     User     @relation("ReviewerRatings", fields: [reviewer_id], references: [user_id])
   rating_date  DateTime @default(now())
 }
-
