@@ -48,7 +48,6 @@ model Item {
   condition     String   @db.VarChar(20)
   description   String?  @db.VarChar(255)
   availability  Boolean
-  price_per_day Decimal  @db.Decimal(10, 2)
   bookings      Booking[]
   reviews       Review[]
   ratings       Rating[]
@@ -65,8 +64,6 @@ model Booking {
   start_date  DateTime
   end_date    DateTime
   status      String   @db.VarChar(20)
-  total_price Decimal  @db.Decimal(10, 2)
-  payments    Payment[]
   reviews     Review[]
 }
 
@@ -78,16 +75,6 @@ model Message {
   receiver     User     @relation("ReceivedMessages", fields: [receiver_id], references: [user_id])
   message_text String?
   timestamp    DateTime @default(now())
-}
-
-model Payment {
-  payment_id    Int      @id @default(autoincrement())
-  booking_id    Int
-  booking       Booking  @relation(fields: [booking_id], references: [booking_id])
-  payment_method String  @db.VarChar(20)
-  amount        Decimal  @db.Decimal(10, 2)
-  payment_date  DateTime @default(now())
-  status        String   @db.VarChar(20)
 }
 
 model Notification {

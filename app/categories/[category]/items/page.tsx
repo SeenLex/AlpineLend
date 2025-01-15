@@ -20,7 +20,6 @@ const ItemsPage = async ({ params }: {params: Promise<ItemsPageProps>}) => {
             <div key={item.item_id} className="bg-white p-4 rounded-lg shadow">
               <h2 className="text-lg font-semibold text-gray-700">{item.brand} - {item.model}</h2>
               <p className="text-sm text-gray-500">{item.description || "No description provided."}</p>
-              <p className="mt-2 font-bold text-gray-900">$${Number(item.price_per_day).toFixed(2)} per day</p>
             </div>
           ))
         ) : (

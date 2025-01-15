@@ -115,16 +115,7 @@ const AddItem = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300 text-black"
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="price_per_day" className="block text-gray-700 text-sm font-medium mb-1">Price</label>
-            <input
-              id="price_per_day"
-              name="price_per_day"
-              type="number"
-              placeholder="Price (RON)"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300 text-black"
-            />
-          </div>
+          
           <div className="flex justify-between items-center mb-6">
             <button
               type="button"

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { fetchUser } from '@/actions/user';
 import { getItemsByUser } from '@/actions/item';
-import { Decimal } from '@prisma/client/runtime/library';
 
 interface Category {
   category_id: number;
@@ -21,7 +20,6 @@ interface Item {
   condition: string;
   description: string | null;
   availability: boolean;
-  price_per_day: Decimal;
 }
 
 const Page = () => {
