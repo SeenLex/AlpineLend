@@ -39,12 +39,12 @@ import "@/assets/globals.css";
 import localFont from "next/font/local";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "../assets/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../assets/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
+  manifest: "/manifest.ts",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
