@@ -1,4 +1,4 @@
-import {User, Item, Booking, Category, Notification, Message} from '@prisma/client';
+import {User, Item, Booking, Category, Notification} from '@prisma/client';
 
 export interface Database {
     users: User[];
@@ -6,5 +6,4 @@ export interface Database {
     bookings: Booking;
     categories: Category[];
     notifications: Notification;
-    messages: Message;
 }
