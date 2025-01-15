@@ -9,7 +9,7 @@ export async function createBooking(formData: FormData) {
             lender_id: parseInt(formData.get("lender_id") as string, 10),
             start_date: new Date(formData.get("start_date") as string),
             end_date: new Date(formData.get("end_date") as string),
-            status: formData.get("status") as string,
+            status: Boolean(formData.get("status")),
         },
     });
 }

@@ -45,7 +45,7 @@ model Item {
   model         String   @db.VarChar(100)
   condition     String   @db.VarChar(20)
   description   String?  @db.VarChar(255)
-  availability  Boolean
+  availability  Boolean  @default(true)
   bookings      Booking[]
   reviews       Review[]
   ratings       Rating[]
@@ -61,7 +61,6 @@ model Booking {
   lender      User     @relation("LenderBookings", fields: [lender_id], references: [user_id])
   start_date  DateTime
   end_date    DateTime
-  status      Boolean
   reviews     Review[]
 }
 
