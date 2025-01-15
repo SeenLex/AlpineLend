@@ -2,8 +2,12 @@ import React from "react";
 import { getAllCategories } from "@/actions/category";
 import { getPopularItems } from "@/actions/item";
 import CategoryList from "@/components/CategoryList";
+
 import PopularSlider from "@/components/PopularItems";
 import SearchableCategoryList from "@/components/SearchableCategoryList";
+
+import Navbar from "@/components/Navbar";
+
 
 const HomePage = async () => {
   const categories = await getAllCategories();
@@ -12,6 +16,7 @@ const HomePage = async () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
+
       <header className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
         <div className="px-4 py-3">
           <h1 className="text-lg font-semibold text-gray-800">AlpineLend</h1>
@@ -24,6 +29,9 @@ const HomePage = async () => {
         </section>
         </div>
       </header>
+
+      <Navbar />
+
 
       {/* Main Content */}
       <main className="pt-36 pb-20 p-4 sm:p-6">
