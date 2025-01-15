@@ -9,7 +9,6 @@ export async function createBooking(formData: FormData) {
             lender_id: parseInt(formData.get("lender_id") as string, 10),
             start_date: new Date(formData.get("start_date") as string),
             end_date: new Date(formData.get("end_date") as string),
-            status: Boolean(formData.get("status")),
         },
     });
 }
@@ -48,15 +47,6 @@ export async function getBookingByLenderId(lender_id: number) {
             borrower: true,
             lender: true,
             item: true,
-        },
-    });
-}
-
-export async function updateBooking(booking_id: number, formData: FormData) {
-    return await prisma.booking.update({
-        where: { booking_id },
-        data: {
-            status: formData.get("status") as string,
         },
     });
 }

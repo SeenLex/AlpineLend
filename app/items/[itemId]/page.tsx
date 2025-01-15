@@ -2,11 +2,11 @@ import { getItemById } from '@/actions/item';
 import Link from "next/link";
 
 interface ItemDetailsPageProps {
-    params: { itemId: string };
+    itemId: string ;
 }
 
-const ItemDetailPage = async ({ params } : ItemDetailsPageProps) => {
-    const { itemId } = params;
+const ItemDetailPage = async ({ params } : {params: Promise<ItemDetailsPageProps>}) => {
+    const { itemId } = await params;
     const item = await getItemById(parseInt(itemId, 10));
 
     if(!item) {
