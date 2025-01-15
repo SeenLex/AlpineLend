@@ -10,8 +10,6 @@ export default async function AuthPage() {
     <div>
       <div>
         <p className="text-black" >Welcome, {dbUser?.name && dbUser?.surname}</p>
-        {/* <p>Role: {dbUser?.role}</p>
-        <p>Gender: {dbUser?.gender}</p> */}
       </div>
     </div>
   );
