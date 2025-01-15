@@ -5,7 +5,7 @@ import { FaHome, FaFolder } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-white shadow-md py-4 px-6 flex justify-around">
+    <footer className="fixed bottom-0 left-0 right-0 bg-white shadow-md py-3 px-6 flex justify-around h-16">
       <Link href="/home" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
         <FaHome size={24} />
         <span className="text-sm">Home</span>
