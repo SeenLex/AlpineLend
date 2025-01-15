@@ -61,6 +61,7 @@ model Booking {
   lender      User     @relation("LenderBookings", fields: [lender_id], references: [user_id])
   start_date  DateTime
   end_date    DateTime
+  status      Boolean
   reviews     Review[]
 }
 
