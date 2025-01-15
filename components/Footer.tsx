@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <FaHome size={24} />
         <span className="text-sm">Home</span>
       </Link>
-      <Link href="categories" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
+      <Link href="/categories" className="flex flex-col items-center text-gray-600 hover:text-gray-800">
         <FaFolder size={24} />
         <span className="text-sm">Categories</span>
       </Link>
