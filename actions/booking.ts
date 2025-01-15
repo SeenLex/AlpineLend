@@ -35,6 +35,12 @@ export async function getBookingById(booking_id: number) {
     });
 }
 
+export async function getBookingsByItemId(item_id: number) {
+    return await prisma.booking.findMany({
+        where: { item_id },
+    });
+}
+
 export async function getBookingByLenderId(lender_id: number) {
     return await prisma.booking.findMany({
         where: { lender_id: lender_id },
