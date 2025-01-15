@@ -77,3 +77,50 @@ export async function deleteItem(item_id: number) {
         where: { item_id },
     });
 }
+
+export async function getPopularItems(limit: number = 10) {
+  // Fetch items with their ratings aggregated
+  const itemsWithRatings = await prisma.item.findMany({
+    where: {
+      availability: true, // Only include available items
+      ratings: {
+        some: {}, // Only include items with at least one rating
+      },
+    },
+    include: {
+      ratings: {
+        select: { rating_value: true }, // Fetch all rating values for aggregation
+      },
+      category: {
+          select: { category_name: true},
+      }
+    },
+  });
+
+  // Calculate the average rating and total ratings for each item
+  const popularItems = itemsWithRatings.map((item) => {
+    const totalRatings = item.ratings.length;
+    const averageRating =
+      totalRatings > 0
+        ? item.ratings.reduce((sum, r) => sum + r.rating_value, 0) / totalRatings
+        : 0;
+
+    return {
+      id: item.item_id,                     
+      name: `${item.brand} ${item.model}`,  
+      category: item.category?.category_name || "", 
+      description: item.description || "", 
+      image: "/placeholder.jpg",           
+      averageRating,                      
+      totalReviews: totalRatings, 
+    };
+  });
+
+  // Sort by average rating in descending order
+  const sortedPopularItems = popularItems.sort(
+    (a, b) => b.averageRating - a.averageRating
+  );
+
+  // Limit the results
+  return sortedPopularItems.slice(0, limit);
+}
