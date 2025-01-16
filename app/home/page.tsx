@@ -4,12 +4,15 @@ import { getPopularItems } from "@/actions/item";
 import CategoryList from "@/components/CategoryList";
 
 import PopularSlider from "@/components/PopularItems";
+import PopularUsersSlider from "@/components/PopularUsers";
 import SearchableCategoryList from "@/components/SearchableCategoryList";
+import { getPopularUsers } from "@/actions/user";
 
 
 const HomePage = async () => {
   const categories = await getAllCategories();
   const popularItems = await getPopularItems();
+  const popularUsers = await getPopularUsers();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -41,23 +44,9 @@ const HomePage = async () => {
           {/* Popular Users Section */}
           <section>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
-              Popular Users
+              Popular users
             </h3>
-            <div className="flex items-center bg-white shadow-sm rounded-lg p-4 hover:shadow-md transition">
-              <img
-                src="/default-profile.png"
-                alt="User profile"
-                className="w-12 h-12 rounded-full mr-4"
-              />
-              <div className="flex-1">
-                <h4 className="text-lg font-medium text-gray-800">Andrew</h4>
-                <span className="text-sm text-gray-600">Rating: ★</span>
-                <p className="text-sm text-gray-500">Member Since: 2022</p>
-              </div>
-              <button className="px-4 py-2 bg-gray-800 text-white text-sm rounded-full hover:bg-gray-900 transition">
-                See Profile
-              </button>
-            </div>
+            <PopularUsersSlider popularUsers={popularUsers} />
           </section>
         </div>
       </main>

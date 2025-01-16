@@ -45,15 +45,6 @@ export async function getUserById(user_id: number) {
   });
 }
 
-export async function getPopularUsers() {
-  return await prisma.user.findMany({
-    take: 5,
-    orderBy: {
-      user_id: "desc",
-    },
-  });
-}
-
 export async function updateUser(user_id: number, formData: FormData) {
   await prisma.user.update({
     where: {
@@ -92,4 +83,41 @@ export async function getUserInfo(user_id: number) {
       gender: true
     },
   });
+}
+
+export async function getPopularUsers(limit: number = 10) {
+  const usersWithRating = await prisma.user.findMany({
+    where: {
+      ratings: {
+        some: {},
+      },
+    },
+    include: {
+      ratings: {
+        select: { rating_value: true },
+      },
+    },
+  });
+
+  const popularUsers = usersWithRating.map((user) => {
+    const totalRatings = user.ratings.length;
+    const averageRating =
+      totalRatings > 0
+        ? user.ratings.reduce((sum, r) => sum + r.rating_value, 0) / totalRatings
+        : 0;
+
+    return {
+      id: user.user_id,
+      name: `${user.name} ${user.surname}`,  
+      image: "/placeholder.jpg",           
+      averageRating,                      
+      totalReviews: totalRatings, 
+    };
+  });
+
+  const sortedPopularUsers = popularUsers.sort(
+    (a, b) => b.averageRating - a.averageRating
+  );
+
+  return sortedPopularUsers.slice(0, limit);
 }
