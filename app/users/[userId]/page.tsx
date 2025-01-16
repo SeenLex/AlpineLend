@@ -20,11 +20,10 @@ const UserProfilePage = async ({ params }: {params: Promise<UsersProps>}) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Profile Section */}
       <header className="bg-white shadow-md p-6">
         <div className="flex items-center space-x-4">
           <img
-            src={user.profile_image || "/default-avatar.png"} // Default avatar
+            src={user.profile_image || "/default-avatar.png"}
             alt={user.name}
             className="w-16 h-16 rounded-full object-cover"
           />
@@ -34,7 +33,6 @@ const UserProfilePage = async ({ params }: {params: Promise<UsersProps>}) => {
         </div>
       </header>
 
-      {/* Items Section */}
       <main className="p-6">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">{`${user.name}'s Items`}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

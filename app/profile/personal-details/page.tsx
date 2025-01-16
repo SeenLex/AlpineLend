@@ -1,8 +1,10 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from "react"
-import { fetchUser } from "@/actions/user"
-import { UserRole } from "@prisma/client"
+import { useEffect, useState } from "react";
+import { fetchUser } from "@/actions/user";
+import { UserRole } from "@prisma/client";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 
 export default function PersonalDetails() {
   const [user, setUser] = useState<{
@@ -53,23 +55,14 @@ export default function PersonalDetails() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      {/* Status Bar */}
-      <div className="flex h-8 items-center justify-between px-4 text-sm">
-        <span>9:45</span>
-        <div className="flex items-center gap-1">
-          <span>98%</span>
-          <div className="h-3 w-6 rounded-sm border border-black"></div>
-        </div>
-      </div>
-
-      {/* Header */}
       <header className="flex items-center gap-4 p-4">
-        <button className="text-2xl">&larr;</button>
+        <Link href="/profile">
+          <ChevronLeft className="h-6 w-6" />
+        </Link>
         <h1 className="text-xl font-medium">Personal Details</h1>
       </header>
 
       <form className="flex flex-1 flex-col gap-4 p-4">
-        {/* Profile Image */}
         <div className="flex justify-center mb-4">
           <div className="relative h-32 w-32 rounded-full border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center overflow-hidden">
             {user.profile_image ? (
@@ -79,8 +72,17 @@ export default function PersonalDetails() {
                 className="h-full w-full object-cover"
               />
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-12 w-12 text-gray-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                  clipRule="evenodd"
+                />
               </svg>
             )}
             <input
@@ -91,14 +93,16 @@ export default function PersonalDetails() {
           </div>
         </div>
 
-        {/* Form Fields */}
         <div className="space-y-4">
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-1">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 text-sm font-medium mb-1"
+            >
               Name
             </label>
-            <input 
-              id="name" 
+            <input
+              id="name"
               type="text"
               value={`${user.name} ${user.surname}`.trim()}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
@@ -107,11 +111,14 @@ export default function PersonalDetails() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-1">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 text-sm font-medium mb-1"
+            >
               Email
             </label>
-            <input 
-              id="email" 
+            <input
+              id="email"
               type="email"
               value={user.email}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
@@ -120,11 +127,14 @@ export default function PersonalDetails() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="phone" className="block text-gray-700 text-sm font-medium mb-1">
+            <label
+              htmlFor="phone"
+              className="block text-gray-700 text-sm font-medium mb-1"
+            >
               Phone
             </label>
-            <input 
-              id="phone" 
+            <input
+              id="phone"
               type="tel"
               value={user.phone || "Not Provided"}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
@@ -133,11 +143,14 @@ export default function PersonalDetails() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="location" className="block text-gray-700 text-sm font-medium mb-1">
+            <label
+              htmlFor="location"
+              className="block text-gray-700 text-sm font-medium mb-1"
+            >
               Location
             </label>
-            <input 
-              id="location" 
+            <input
+              id="location"
               type="text"
               value={user.location || "Not Provided"}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
@@ -159,6 +172,5 @@ export default function PersonalDetails() {
         </div>
       </form>
     </div>
-  )
+  );
 }
-

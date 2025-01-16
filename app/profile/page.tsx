@@ -11,7 +11,6 @@ const Profile = () => {
         <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
       </div>
 
-      {/* Profile Picture Section */}
       <div className="flex flex-col items-center py-8 w-full">
         <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center mb-4">
           <Image className="text-gray-400" size={40} />
@@ -21,7 +20,6 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Options Section */}
       <div className="px-4 py-6 w-full max-w-md space-y-6">
         <Link
           href="/profile/history"

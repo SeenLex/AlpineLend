@@ -34,6 +34,20 @@ export async function getItemById(item_id: number) {
     });
 }
 
+export async function getItemsByIds(item_ids: number[]) {
+    return await prisma.item.findMany({
+        where: {
+            item_id: {
+                in: item_ids,
+            },
+        },
+        include: {
+            category: true,
+            user: true,
+        },
+    });
+}
+
 export async function getItemsByCategoryName(category_name: string) {
     return await prisma.item.findMany({
         where: {
@@ -61,8 +75,6 @@ export async function updateItem(item_id: number, formData: FormData) {
     return await prisma.item.update({
         where: { item_id },
         data: {
-            user_id: parseInt(formData.get("user_id") as string, 10),
-            category_id: parseInt(formData.get("category_id") as string, 10),
             brand: formData.get("brand") as string,
             model: formData.get("model") as string,
             condition: formData.get("condition") as string,

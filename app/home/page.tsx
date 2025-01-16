@@ -8,7 +8,6 @@ import PopularUsersSlider from "@/components/PopularUsers";
 import SearchableCategoryList from "@/components/SearchableCategoryList";
 import { getPopularUsers } from "@/actions/user";
 
-
 const HomePage = async () => {
   const categories = await getAllCategories();
   const popularItems = await getPopularItems();
@@ -28,12 +27,10 @@ const HomePage = async () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="pt-36 pb-20 p-4 sm:p-6">
         <div className="max-w-screen-lg mx-auto space-y-12">
           <CategoryList categories={categories} />
 
-          {/* Popular Section */}
           <section>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
               Popular items
@@ -41,7 +38,6 @@ const HomePage = async () => {
             <PopularSlider popularItems={popularItems} />
           </section>
 
-          {/* Popular Users Section */}
           <section>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
               Popular users
