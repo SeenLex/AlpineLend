@@ -40,20 +40,25 @@ export async function register(formData: FormData) {
   const name = formData.get('name') as string;
   const surname = formData.get('surname') as string;
 
+
   if (
     !email ||
     !/^[a-zA-Z0-9]+@[a-zA-Z]+\.(com|net|org)$/.test(email) ||
     !/(yahoo|gmail|outlook)\.com$/.test(email)
   ) {
-    redirect('/error?message=Invalid email address');
+    throw new Error('Invalid e-mail address!');
   }
 
   if (!name || !/^[a-zA-Z]+$/.test(name)) {
-    redirect('/error?message=Invalid name');
+    {
+      throw new Error('Invalid name!');
+    }
   }
 
   if (!surname || !/^[a-zA-Z]+$/.test(surname)) {
-    redirect('/error?message=Invalid surname');
+    {
+      throw new Error('Invalid surname!');
+    }
   }
 
   if (
@@ -63,19 +68,21 @@ export async function register(formData: FormData) {
     !/[a-z]/.test(password) ||
     !/[0-9]/.test(password) ||
     !/[^a-zA-Z0-9]/.test(password)
-  ) {
-    redirect('/error?message=Invalid password');
-  }
+  ) 
+    {
+      throw new Error('Invalid password!');
+    }
+  
 
   if (password !== confirmPassword) {
-    redirect('/error?message=Passwords do not match');
+    throw new Error('Invalid password!');
   }
-
+  
   const data = { email, password };
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    redirect('/error?message=Registration failed');
+    throw new Error('Invalid credentials!');
   }
 
   revalidatePath('/', 'layout');

@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "windows"]
 }
 
@@ -15,40 +15,41 @@ enum UserRole {
 }
 
 model User {
-  user_id          Int       @id @default(autoincrement())
-  role             UserRole  @default(USER)
-  name             String    @db.VarChar(100)
-  surname          String    @db.VarChar(100)
-  email            String    @unique @db.VarChar(100)
-  phone            String?   @db.VarChar(20)
-  location         String?   @db.VarChar(100)
-  gender           String?   @db.VarChar(10)
-  profile_image    String?   @db.VarChar(255)
-  member_since     DateTime  @default(now())
-  status           String?   @db.VarChar(20)
-  items            Item[]
-  bookings         Booking[] @relation("BorrowerBookings")
-  lenderBookings   Booking[] @relation("LenderBookings")
-  notifications    Notification[]
-  reviews          Review[]  @relation("ReviewerReviews")
-  ratings          Rating[]  @relation("UserRatings")
-  reviewerRatings  Rating[]  @relation("ReviewerRatings")
+  user_id         Int            @id @default(autoincrement())
+  role            UserRole       @default(USER)
+  name            String         @db.VarChar(100)
+  surname         String         @db.VarChar(100)
+  email           String         @unique @db.VarChar(100)
+  phone           String?        @db.VarChar(20)
+  location        String?        @db.VarChar(100)
+  gender          String?        @db.VarChar(10)
+  profile_image   String?        @db.VarChar(255)
+  member_since    DateTime       @default(now())
+  status          String?        @db.VarChar(20)
+  items           Item[]
+  bookings        Booking[]      @relation("BorrowerBookings")
+  lenderBookings  Booking[]      @relation("LenderBookings")
+  notifications   Notification[]
+  reviews         Review[]       @relation("ReviewerReviews")
+  ratings         Rating[]       @relation("UserRatings")
+  reviewerRatings Rating[]       @relation("ReviewerRatings")
 }
 
 model Item {
-  item_id       Int      @id @default(autoincrement())
-  user_id       Int
-  user          User     @relation(fields: [user_id], references: [user_id])
-  category_id   Int
-  category      Category @relation(fields: [category_id], references: [category_id])
-  brand         String   @db.VarChar(100)
-  model         String   @db.VarChar(100)
-  condition     String   @db.VarChar(20)
-  description   String?  @db.VarChar(255)
-  availability  Boolean  @default(true)
-  bookings      Booking[]
-  reviews       Review[]
-  ratings       Rating[]
+  item_id      Int       @id @default(autoincrement())
+  user_id      Int
+  user         User      @relation(fields: [user_id], references: [user_id])
+  category_id  Int
+  category     Category  @relation(fields: [category_id], references: [category_id])
+  brand        String    @db.VarChar(100)
+  model        String    @db.VarChar(100)
+  condition    String    @db.VarChar(20)
+  description  String?   @db.VarChar(255)
+  availability Boolean   @default(true)
+  bookings     Booking[]
+  reviews      Review[]
+  ratings      Rating[]
+  image        String    @db.VarChar(255)
 }
 
 model Booking {
@@ -74,10 +75,10 @@ model Notification {
 }
 
 model Category {
-  category_id   Int      @id @default(autoincrement())
-  category_name String   @db.VarChar(100)
+  category_id   Int    @id @default(autoincrement())
+  category_name String @db.VarChar(100)
   items         Item[]
-  image         String  @db.VarChar(255)
+  image         String @db.VarChar(255)
 }
 
 model Review {

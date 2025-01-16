@@ -1,8 +1,9 @@
-'use client'
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { fetchUser } from '@/actions/user';
-import { getItemsByUser } from '@/actions/item';
+"use client";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { fetchUser } from "@/actions/user";
+import { deleteItem, getItemsByUser } from "@/actions/item";
+import { ChevronLeft } from "lucide-react";
 
 interface Category {
   category_id: number;
@@ -38,10 +39,20 @@ const Page = () => {
     loadData();
   }, []);
 
+  const handleRemove = async (item_id: number) => {
+    await deleteItem(item_id);
+
+    setItems((prevItems) =>
+      prevItems.filter((item) => item.item_id !== item_id)
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center px-4 py-6">
       <header className="w-full flex items-center justify-between mb-6">
-        <button className="text-lg">&larr;</button>
+        <Link href="/profile">
+          <ChevronLeft className="h-6 w-6" />
+        </Link>
         <h1 className="text-xl font-semibold">My Items</h1>
         <div className="w-6"></div>
       </header>
@@ -67,9 +78,12 @@ const Page = () => {
 
               <div className="mt-4 flex justify-between">
                 <button className="px-4 py-2 bg-black text-white rounded-md">
-                  Edit
+                  <Link href={`/profile/my-items/edit-item/${item.item_id}`}>Edit</Link>
                 </button>
-                <button className="px-4 py-2 bg-red-100 text-red-600 rounded-md">
+                <button
+                  className="px-4 py-2 bg-red-100 text-red-600 rounded-md"
+                  onClick={() => handleRemove(item.item_id)}
+                >
                   Remove
                 </button>
               </div>
@@ -80,7 +94,7 @@ const Page = () => {
 
       <Link
         href="/profile/my-items/add-item"
-        className="fixed bottom-24 right-6 w-14 h-14 bg-blue-600 text-white text-2xl flex items-center justify-center rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+        className="fixed bottom-24 right-6 w-14 h-14 bg-black text-white text-2xl flex items-center justify-center rounded-full shadow-lg hover:bg-gray-700 transition duration-300"
       >
         +
       </Link>

@@ -63,6 +63,9 @@ export async function updateUser(user_id: number, formData: FormData) {
       name: formData.get("name") as string,
       surname: formData.get("surname") as string,
       email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      location: formData.get("location") as string,
+      gender: formData.get("gender") as string,
     },
   });
 }

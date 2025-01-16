@@ -116,7 +116,7 @@ const AddItem = () => {
             />
           </div>
           
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mt-24">
             <button
               type="button"
               onClick={handleAddItem}

@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
-import { fetchUser } from "@/actions/user";
-import { UserRole } from "@prisma/client";
+import { useEffect, useState } from "react"
+import { fetchUser } from "@/actions/user"
+import { UserRole } from "@prisma/client"
 
-const PersonalDetails = () => {
+export default function PersonalDetails() {
   const [user, setUser] = useState<{
     user_id: number;
     role: UserRole;
@@ -35,91 +35,130 @@ const PersonalDetails = () => {
     fetchUserData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-lg">Loading...</p>
+      </div>
+    );
+  }
 
-  if (!user) return <p>Failed to load user details.</p>;
+  if (!user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-lg">Failed to load user details.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center">
-      <div className="py-6 px-4 w-full text-center">
-        <h1 className="text-center text-xl font-semibold mb-6 lg:text-2xl">
-          Personal Details
-        </h1>
-        <div className="flex justify-center mb-6">
-          <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center sm:w-28 sm:h-28 lg:w-32 lg:h-32">
-            {/* Placeholder for profile image */}
-            <img
-              src={user.profile_image || "/placeholder.jpg"}
-              alt="Profile"
-              className="w-full h-full rounded-full object-cover"
+    <div className="flex min-h-screen flex-col bg-white">
+      {/* Status Bar */}
+      <div className="flex h-8 items-center justify-between px-4 text-sm">
+        <span>9:45</span>
+        <div className="flex items-center gap-1">
+          <span>98%</span>
+          <div className="h-3 w-6 rounded-sm border border-black"></div>
+        </div>
+      </div>
+
+      {/* Header */}
+      <header className="flex items-center gap-4 p-4">
+        <button className="text-2xl">&larr;</button>
+        <h1 className="text-xl font-medium">Personal Details</h1>
+      </header>
+
+      <form className="flex flex-1 flex-col gap-4 p-4">
+        {/* Profile Image */}
+        <div className="flex justify-center mb-4">
+          <div className="relative h-32 w-32 rounded-full border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center overflow-hidden">
+            {user.profile_image ? (
+              <img
+                src={user.profile_image || "/placeholder.svg"}
+                alt="Profile"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+              </svg>
+            )}
+            <input
+              type="file"
+              className="absolute inset-0 opacity-0 cursor-pointer"
+              accept="image/*"
             />
           </div>
         </div>
-        <form>
+
+        {/* Form Fields */}
+        <div className="space-y-4">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-medium mb-1">
+            <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-1">
               Name
             </label>
-            <input
+            <input 
+              id="name" 
               type="text"
-              placeholder="Name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300 text-black"
-              defaultValue={user.name}
+              value={`${user.name} ${user.surname}`.trim()}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
               readOnly
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-medium mb-1">
+            <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-1">
               Email
             </label>
-            <input
+            <input 
+              id="email" 
               type="email"
-              placeholder="Email"
+              value={user.email}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
-              defaultValue={user.email}
               readOnly
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-medium mb-1">
+            <label htmlFor="phone" className="block text-gray-700 text-sm font-medium mb-1">
               Phone
             </label>
-            <input
+            <input 
+              id="phone" 
               type="tel"
-              placeholder="Phone"
+              value={user.phone || "Not Provided"}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
-              defaultValue={user.phone || "Not Provided"}
               readOnly
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-medium mb-1">
+            <label htmlFor="location" className="block text-gray-700 text-sm font-medium mb-1">
               Location
             </label>
-            <input
+            <input 
+              id="location" 
               type="text"
-              placeholder="Location"
+              value={user.location || "Not Provided"}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
-              defaultValue={user.location || "Not Provided"}
               readOnly
             />
           </div>
+
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-medium mb-1">
               Gender
             </label>
             <input
               type="text"
-              placeholder="Gender"
+              value={user.gender || "Not Provided"}
               className="w-full px-3 py-2 border border-gray-300 rounded-md bg-blue-50 focus:outline-none focus:ring focus:ring-blue-300"
-              defaultValue={user.gender || "Not Provided"}
               readOnly
             />
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
-  );
-};
+  )
+}
 
-export default PersonalDetails;
